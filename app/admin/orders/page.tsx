@@ -52,7 +52,7 @@ export default function AdminOrdersPage() {
     <AdminGuard>
       <div className="flex flex-col gap-8 pb-12 min-h-screen bg-background">
         {/* Header */}
-        <header className="px-6 pt-8 flex items-center justify-between bg-white border-b border-black/5">
+        <header className="px-6 pt-8 flex items-center justify-between bg-card border-b border-black/5">
           <div>
             <h1 className="text-2xl font-bold text-foreground">Orders Management</h1>
             <p className="text-sm text-subtitle">{orders.length} total orders</p>
@@ -71,7 +71,7 @@ export default function AdminOrdersPage() {
               placeholder="Search orders..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full h-14 pl-12 pr-4 bg-white rounded-2xl border border-black/5 focus:border-primary focus:outline-none premium-shadow text-foreground placeholder:text-subtitle"
+              className="w-full h-14 pl-12 pr-4 bg-card rounded-2xl border border-black/5 focus:border-primary focus:outline-none premium-shadow text-foreground placeholder:text-subtitle"
             />
           </div>
           <div className="relative">
@@ -82,7 +82,7 @@ export default function AdminOrdersPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full md:w-48 h-14 pl-12 pr-4 bg-white rounded-2xl border border-black/5 focus:border-primary focus:outline-none premium-shadow text-foreground"
+              className="w-full md:w-48 h-14 pl-12 pr-4 bg-card rounded-2xl border border-black/5 focus:border-primary focus:outline-none premium-shadow text-foreground"
             >
               {statusOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -96,11 +96,11 @@ export default function AdminOrdersPage() {
         {/* Orders List */}
         <section className="px-6">
           {filteredOrders.length === 0 ? (
-            <div className="bg-white rounded-2xl p-12 text-center premium-shadow">
+            <div className="bg-card rounded-2xl p-12 text-center premium-shadow">
               <p className="text-subtitle font-medium">No orders found</p>
             </div>
           ) : (
-            <div className="bg-white rounded-2xl overflow-hidden premium-shadow">
+            <div className="bg-card rounded-2xl overflow-hidden premium-shadow">
               <div className="divide-y divide-black/5">
                 {filteredOrders.map((order) => (
                   <div key={order.id} className="p-6 hover:bg-black/2 transition-colors">

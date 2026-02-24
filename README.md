@@ -112,7 +112,7 @@ shopping/
 Create a `.env` file with the following variables:
 
 ```env
-MONGODB_URI=mongodb://localhost:27017/veggiefresh
+MONGODB_URI=mongodb://localhost:27017/JannoFresh
 JWT_SECRET=your-super-secret-jwt-key-change-in-production
 JWT_EXPIRES_IN=7d
 NEXT_PUBLIC_API_URL=http://localhost:5000/api

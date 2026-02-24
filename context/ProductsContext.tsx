@@ -9,12 +9,15 @@ interface ProductsContextType {
     updateProduct: (id: string, product: Partial<Product>) => void;
     deleteProduct: (id: string) => void;
     getProductById: (id: string) => Product | undefined;
+    searchQuery: string;
+    setSearchQuery: (query: string) => void;
 }
 
 const ProductsContext = createContext<ProductsContextType | undefined>(undefined);
 
 export function ProductsProvider({ children }: { children: ReactNode }) {
     const [products, setProducts] = useState<Product[]>([]);
+    const [searchQuery, setSearchQuery] = useState("");
 
     // Load products from localStorage or use initial data
     useEffect(() => {
@@ -66,7 +69,9 @@ export function ProductsProvider({ children }: { children: ReactNode }) {
             addProduct,
             updateProduct,
             deleteProduct,
-            getProductById
+            getProductById,
+            searchQuery,
+            setSearchQuery
         }}>
             {children}
         </ProductsContext.Provider>

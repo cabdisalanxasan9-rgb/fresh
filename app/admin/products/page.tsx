@@ -28,7 +28,7 @@ export default function AdminProductsPage() {
         <AdminGuard>
             <div className="flex flex-col gap-8 pb-12 min-h-screen bg-background">
                 {/* Header */}
-                <header className="px-6 pt-8 flex items-center justify-between bg-white border-b border-black/5">
+                <header className="px-6 pt-8 flex items-center justify-between bg-card border-b border-black/5">
                     <div>
                         <h1 className="text-2xl font-bold text-foreground">Products Management</h1>
                         <p className="text-sm text-subtitle">{products.length} total products</p>
@@ -51,7 +51,7 @@ export default function AdminProductsPage() {
                             placeholder="Search products..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full h-14 pl-12 pr-4 bg-white rounded-2xl border border-black/5 focus:border-primary focus:outline-none premium-shadow text-foreground placeholder:text-subtitle"
+                            className="w-full h-14 pl-12 pr-4 bg-card rounded-2xl border border-black/5 focus:border-primary focus:outline-none premium-shadow text-foreground placeholder:text-subtitle"
                         />
                     </div>
                 </section>
@@ -59,7 +59,7 @@ export default function AdminProductsPage() {
                 {/* Products List */}
                 <section className="px-6">
                     {filteredProducts.length === 0 ? (
-                        <div className="bg-white rounded-2xl p-12 text-center premium-shadow">
+                        <div className="bg-card rounded-2xl p-12 text-center premium-shadow">
                             <Package size={48} className="mx-auto mb-4 text-subtitle" />
                             <p className="text-subtitle font-medium">No products found</p>
                         </div>
@@ -68,7 +68,7 @@ export default function AdminProductsPage() {
                             {filteredProducts.map((product) => (
                                 <div
                                     key={product.id}
-                                    className="bg-white rounded-2xl p-4 premium-shadow hover:translate-y-[-2px] transition-all"
+                                    className="bg-card rounded-2xl p-4 premium-shadow hover:translate-y-[-2px] transition-all"
                                 >
                                     <div className="relative h-40 w-full rounded-xl overflow-hidden mb-3">
                                         <Image
@@ -110,7 +110,7 @@ export default function AdminProductsPage() {
                 {/* Delete Confirmation Modal */}
                 {showDeleteConfirm && (
                     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-                        <div className="bg-white rounded-2xl p-6 max-w-md w-full premium-shadow">
+                        <div className="bg-card rounded-2xl p-6 max-w-md w-full premium-shadow">
                             <h3 className="text-lg font-bold text-foreground mb-2">Delete Product?</h3>
                             <p className="text-sm text-subtitle mb-6">
                                 Are you sure you want to delete this product? This action cannot be undone.

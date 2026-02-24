@@ -16,13 +16,13 @@ export default function ProfilePage() {
     const { language } = usePreferences();
     const fileInputRef = React.useRef<HTMLInputElement | null>(null);
     const [avatarOverride, setAvatarOverride] = React.useState<string | null>(null);
-    const activeOrdersCount = orders.filter(order => 
+    const activeOrdersCount = orders.filter(order =>
         order.status === "In Progress" || order.status === "Processing" || order.status === "Confirmed" || order.status === "On the way"
     ).length;
 
     const avatarStorageKey = React.useMemo(() => {
         const id = user?.email || "guest";
-        return `veggiefresh:avatar:v1:${id}`;
+        return `JannoFresh:avatar:v1:${id}`;
     }, [user?.email]);
 
     React.useEffect(() => {
@@ -93,16 +93,16 @@ export default function ProfilePage() {
                 { icon: Bell, label: "Settings", path: "/settings" },
             ]
         },
-    {
-        title: "Settings & Support",
-        items: [
-            { icon: Bell, label: "Notification Settings", path: "/settings" },
-            { icon: Globe, label: "Language", value: languageLabel(language), path: "/settings" },
-            { icon: HelpCircle, label: "Help Center", path: "/settings" },
-            { icon: Shield, label: "Privacy Policy", path: "/settings" },
-        ]
-    }
-];
+        {
+            title: "Settings & Support",
+            items: [
+                { icon: Bell, label: "Notification Settings", path: "/settings" },
+                { icon: Globe, label: "Language", value: languageLabel(language), path: "/settings" },
+                { icon: HelpCircle, label: "Help Center", path: "/settings" },
+                { icon: Shield, label: "Privacy Policy", path: "/settings" },
+            ]
+        }
+    ];
 
     return (
         <div className="flex flex-col gap-0 pb-12 bg-background min-h-screen">
@@ -216,7 +216,7 @@ export default function ProfilePage() {
 
                 {/* Logout Button - Only show if user is logged in */}
                 {user && (
-                    <button 
+                    <button
                         onClick={handleLogout}
                         className="mt-4 w-full h-16 bg-red-50 text-red-500 rounded-3xl flex items-center justify-center gap-3 font-bold border border-red-100/50 hover:bg-red-100 transition-all active:scale-[0.98] premium-shadow shadow-red-500/5 group"
                     >

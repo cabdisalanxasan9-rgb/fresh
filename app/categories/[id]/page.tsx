@@ -5,7 +5,8 @@ import { ChevronLeft, Search, SlidersHorizontal } from "lucide-react";
 import { useRouter, useParams } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
 
-// Shared data (in a real app this would come from a lib or API)
+import { useProducts } from "@/context/ProductsContext";
+
 const categories = [
     { id: "leafy-greens", label: "Leafy Greens", icon: "/images/cat-greens.jpg", color: "bg-emerald-50 text-emerald-600" },
     { id: "root-vegies", label: "Root Vegies", icon: "/images/cat-root.jpg", color: "bg-orange-50 text-orange-600" },
@@ -17,29 +18,17 @@ const categories = [
     { id: "berries", label: "Berries", icon: "/images/cat-berries.jpg", color: "bg-purple-50 text-purple-600" },
 ];
 
-const products = [
-    { id: "p1", categoryId: "fruits", title: "Fresh Red Tomatoes", price: 2.50, unit: "kg", image: "/images/veg-tomato.jpg", isFavorite: true },
-    { id: "p2", categoryId: "leafy-greens", title: "Organic Broccoli", price: 3.20, unit: "pc", image: "/images/veg-broccoli.jpg" },
-    { id: "p3", categoryId: "root-vegies", title: "Sweet Carrots", price: 1.80, unit: "kg", image: "/images/veg-carrot.jpg" },
-    { id: "p4", categoryId: "peppers", title: "Bell Peppers", price: 4.50, unit: "kg", image: "/images/veg-peppers-mix.jpg" },
-    { id: "p5", categoryId: "root-vegies", title: "Organic Cucumbers", price: 1.20, unit: "pc", image: "/images/veg-cucumber.jpg" },
-    { id: "p6", categoryId: "root-vegies", title: "Fresh Garlic", price: 0.50, unit: "pc", image: "/images/veg-garlic.jpg" },
-    { id: "p7", categoryId: "root-vegies", title: "Yellow Onions", price: 1.50, unit: "kg", image: "/images/veg-onion.jpg" },
-    { id: "p8", categoryId: "leafy-greens", title: "Baby Spinach", price: 2.80, unit: "kg", image: "/images/veg-spinach.jpg" },
-    { id: "p9", categoryId: "root-vegies", title: "Fresh Eggplant", price: 2.00, unit: "kg", image: "/images/veg-eggplant.jpg" },
-    { id: "p10", categoryId: "root-vegies", title: "Organic Potatoes", price: 1.40, unit: "kg", image: "/images/veg-potato.jpg" },
-    { id: "p11", categoryId: "fungi", title: "Wild Mushrooms", price: 5.50, unit: "kg", image: "/images/veg-mushroom.jpg" },
-    { id: "p12", categoryId: "peppers", title: "Bell Pepper Mix", price: 4.80, unit: "kg", image: "/images/veg-peppers-mix.jpg" },
-    { id: "p13", categoryId: "grains", title: "Organic Rolled Oats", price: 3.50, unit: "kg", image: "/images/veg-oats.jpg" },
-];
-
 export default function CategoryDetailPage() {
     const router = useRouter();
     const params = useParams();
     const id = params.id as string;
+    const { products, searchQuery } = useProducts();
 
     const category = categories.find(c => c.id === id);
-    const filteredProducts = products.filter(p => p.categoryId === id);
+    const filteredProducts = products.filter(p =>
+        p.categoryId === id &&
+        (p.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
 
     if (!category) {
         return <div className="p-8 text-center">Category not found</div>;

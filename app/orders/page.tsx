@@ -131,7 +131,7 @@ export default function OrdersPage() {
             {/* Footer Branding */}
             <div className="flex justify-center pb-8 opacity-40">
                 <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-subtitle">
-                    VeggieFresh Marketplace © 2024
+                    JannoFresh Marketplace © 2024
                 </p>
             </div>
         </div>

@@ -62,7 +62,7 @@ export default function SignupPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         if (!validateForm()) return;
 
         try {
@@ -80,9 +80,9 @@ export default function SignupPage() {
                 <div className="w-11" />
                 <div className="flex items-center gap-2">
                     <ShoppingBag size={24} className="text-primary" />
-                    <h1 className="text-xl font-bold text-foreground">VeggieFresh</h1>
+                    <h1 className="text-xl font-bold text-foreground">JannoFresh</h1>
                 </div>
-                <Link 
+                <Link
                     href="/auth/login"
                     className="text-primary text-sm font-bold hover:underline"
                 >
@@ -215,7 +215,7 @@ export default function SignupPage() {
                     <p className="text-xs text-subtitle leading-relaxed">
                         By creating an account, you agree to our{" "}
                         <span className="text-primary font-bold">Terms of Service</span> and{" "}
-                        <span className="text-primary font-bold">Privacy Policy</span>. 
+                        <span className="text-primary font-bold">Privacy Policy</span>.
                         We'll use your information to personalize your experience and send you relevant updates.
                     </p>
                 </div>
@@ -231,7 +231,7 @@ export default function SignupPage() {
                 </p>
                 <div className="flex justify-center opacity-40">
                     <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-subtitle">
-                        VeggieFresh v2.4.1
+                        JannoFresh v2.4.1
                     </p>
                 </div>
             </div>

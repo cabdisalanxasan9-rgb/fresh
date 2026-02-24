@@ -75,7 +75,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
         <AdminGuard>
             <div className="flex flex-col gap-8 pb-12 min-h-screen bg-background">
                 {/* Header */}
-                <header className="px-6 pt-8 flex items-center gap-4 bg-white border-b border-black/5">
+                <header className="px-6 pt-8 flex items-center gap-4 bg-card border-b border-black/5">
                     <button
                         onClick={() => router.back()}
                         className="w-11 h-11 bg-white rounded-full flex items-center justify-center premium-shadow"
@@ -87,7 +87,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
 
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="px-6 flex flex-col gap-6">
-                    <div className="bg-white rounded-2xl p-6 premium-shadow flex flex-col gap-6">
+                    <div className="bg-card rounded-2xl p-6 premium-shadow flex flex-col gap-6">
                         {/* Title */}
                         <div className="flex flex-col gap-2">
                             <label className="text-sm font-bold text-foreground">Product Title</label>
@@ -106,7 +106,7 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
                             <select
                                 value={formData.categoryId ?? ""}
                                 onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
-                                className={`w-full h-12 px-4 rounded-xl border ${errors.categoryId ? 'border-red-500' : 'border-black/5'} focus:border-primary focus:outline-none text-foreground bg-white`}
+                                className={`w-full h-12 px-4 rounded-xl border ${errors.categoryId ? 'border-red-500' : 'border-black/5'} focus:border-primary focus:outline-none text-foreground bg-card`}
                             >
                                 {categories.map((cat) => (
                                     <option key={cat.id} value={cat.id}>{cat.label}</option>

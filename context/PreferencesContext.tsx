@@ -21,7 +21,7 @@ type PreferencesContextValue = PreferencesState & {
   setEmailNotifications: (enabled: boolean) => void;
 };
 
-const STORAGE_KEY = "veggiefresh:preferences:v1";
+const STORAGE_KEY = "JannoFresh:preferences:v1";
 
 const PreferencesContext = createContext<PreferencesContextValue | null>(null);
 

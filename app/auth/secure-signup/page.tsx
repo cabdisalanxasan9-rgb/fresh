@@ -20,7 +20,7 @@ export default function SecureSignupPage() {
 
     const validateForm = () => {
         const newErrors: typeof errors = {};
-        
+
         if (!formData.name.trim()) {
             newErrors.name = "Name is required";
         } else if (formData.name.trim().length < 2) {
@@ -28,23 +28,23 @@ export default function SecureSignupPage() {
         } else if (formData.name.trim().length > 50) {
             newErrors.name = "Name cannot exceed 50 characters";
         }
-        
+
         if (!formData.email.trim()) {
             newErrors.email = "Email is required";
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
             newErrors.email = "Please enter a valid email";
         }
-        
+
         if (!formData.password) {
             newErrors.password = "Password is required";
         } else if (formData.password.length < 6) {
             newErrors.password = "Password must be at least 6 characters";
         }
-        
+
         if (formData.phone && !/^\+?[1-9]\d{1,14}$/.test(formData.phone)) {
             newErrors.phone = "Please enter a valid phone number";
         }
-        
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -52,7 +52,7 @@ export default function SecureSignupPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         clearError();
-        
+
         if (!validateForm()) return;
 
         try {
@@ -79,7 +79,7 @@ export default function SecureSignupPage() {
                 <div className="text-center mb-8">
                     <div className="inline-flex items-center gap-2 mb-4">
                         <ShoppingBag className="w-8 h-8 text-green-600" />
-                        <h1 className="text-2xl font-bold text-gray-900">VeggieFresh</h1>
+                        <h1 className="text-2xl font-bold text-gray-900">JannoFresh</h1>
                     </div>
                     <p className="text-gray-600">Create your secure account</p>
                 </div>
@@ -238,8 +238,8 @@ export default function SecureSignupPage() {
                 <div className="text-center mt-6">
                     <p className="text-gray-600 text-sm">
                         Already have an account?{" "}
-                        <Link 
-                            href="/auth/secure-login" 
+                        <Link
+                            href="/auth/secure-login"
                             className="text-green-600 font-semibold hover:text-green-700 transition-colors"
                         >
                             Sign in securely
@@ -259,7 +259,7 @@ export default function SecureSignupPage() {
                 {/* Footer */}
                 <div className="text-center mt-8">
                     <p className="text-xs text-gray-500">
-                        © 2024 VeggieFresh. All rights reserved. | 
+                        © 2024 JannoFresh. All rights reserved. |
                         <span className="text-green-600 font-medium">Secure Platform</span>
                     </p>
                 </div>

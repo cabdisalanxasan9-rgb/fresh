@@ -59,7 +59,7 @@ export default function AdminDashboard() {
         <AdminGuard>
             <div className="flex flex-col gap-8 pb-12 min-h-screen bg-background">
                 {/* Header */}
-                <header className="px-6 pt-8 flex items-center justify-between bg-white border-b border-black/5">
+                <header className="px-6 pt-8 flex items-center justify-between bg-card border-b border-black/5">
                     <div>
                         <h1 className="text-2xl font-bold text-foreground">Admin Dashboard</h1>
                         <p className="text-sm text-subtitle">Welcome back, {user?.name || 'Admin'}</p>
@@ -78,7 +78,7 @@ export default function AdminDashboard() {
                         <Link
                             key={stat.label}
                             href={stat.link}
-                            className="bg-white rounded-2xl p-6 premium-shadow hover:translate-y-[-2px] transition-all"
+                            className="bg-card rounded-2xl p-6 premium-shadow hover:translate-y-[-2px] transition-all"
                         >
                             <div className="flex items-center justify-between mb-4">
                                 <div className={`w-12 h-12 ${stat.color} rounded-xl flex items-center justify-center text-white`}>
@@ -97,7 +97,7 @@ export default function AdminDashboard() {
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                         <Link
                             href="/admin/products/new"
-                            className="bg-white rounded-2xl p-6 premium-shadow hover:translate-y-[-2px] transition-all flex flex-col items-center justify-center gap-3"
+                            className="bg-card rounded-2xl p-6 premium-shadow hover:translate-y-[-2px] transition-all flex flex-col items-center justify-center gap-3"
                         >
                             <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
                                 <Package size={32} />
@@ -115,7 +115,7 @@ export default function AdminDashboard() {
                         </Link>
                         <Link
                             href="/admin/users"
-                            className="bg-white rounded-2xl p-6 premium-shadow hover:translate-y-[-2px] transition-all flex flex-col items-center justify-center gap-3"
+                            className="bg-card rounded-2xl p-6 premium-shadow hover:translate-y-[-2px] transition-all flex flex-col items-center justify-center gap-3"
                         >
                             <div className="w-16 h-16 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-500">
                                 <Users size={32} />
@@ -133,7 +133,7 @@ export default function AdminDashboard() {
                             View All
                         </Link>
                     </div>
-                    <div className="bg-white rounded-2xl overflow-hidden premium-shadow">
+                    <div className="bg-card rounded-2xl overflow-hidden premium-shadow">
                         {recentOrders.length === 0 ? (
                             <div className="p-8 text-center text-subtitle">
                                 <p>No orders yet</p>
@@ -152,11 +152,10 @@ export default function AdminDashboard() {
                                         </div>
                                         <div className="flex items-center gap-4">
                                             <span className="font-bold text-sm text-primary">${order.total.toFixed(2)}</span>
-                                            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                                                order.status === "Delivered" ? "bg-green-100 text-green-700" :
-                                                order.status === "Cancelled" ? "bg-red-100 text-red-700" :
-                                                "bg-orange-100 text-orange-700"
-                                            }`}>
+                                            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${order.status === "Delivered" ? "bg-green-100 text-green-700" :
+                                                    order.status === "Cancelled" ? "bg-red-100 text-red-700" :
+                                                        "bg-orange-100 text-orange-700"
+                                                }`}>
                                                 {order.status}
                                             </span>
                                         </div>

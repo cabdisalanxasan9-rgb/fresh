@@ -5,6 +5,8 @@ import { ChevronLeft, Search, MoveRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import CategoryItem from "@/components/CategoryItem";
 
+import { useProducts } from "@/context/ProductsContext";
+
 const categories = [
     { id: "leafy-greens", label: "Leafy Greens", icon: "/images/cat-greens.jpg", color: "bg-emerald-50 text-emerald-600" },
     { id: "root-vegies", label: "Root Vegies", icon: "/images/cat-root.jpg", color: "bg-orange-50 text-orange-600" },
@@ -18,28 +20,63 @@ const categories = [
 
 export default function CategoriesPage() {
     const router = useRouter();
+    const { searchQuery, setSearchQuery } = useProducts();
+    const [isSearching, setIsSearching] = React.useState(false);
+
+    const filteredCategories = categories.filter(cat =>
+        cat.label.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
         <div className="flex flex-col gap-8 pb-32">
             {/* Header */}
-            <header className="px-6 pt-8 flex items-center justify-between">
-                <button
-                    onClick={() => router.back()}
-                    className="w-11 h-11 bg-white rounded-full flex items-center justify-center premium-shadow"
-                >
-                    <ChevronLeft size={20} className="text-foreground" />
-                </button>
-                <h1 className="text-xl font-bold text-foreground">Categories</h1>
-                <button className="w-11 h-11 bg-white rounded-full flex items-center justify-center premium-shadow">
-                    <Search size={20} className="text-foreground" />
-                </button>
+            <header className="px-6 pt-8 flex flex-col gap-4">
+                <div className="flex items-center justify-between">
+                    <button
+                        onClick={() => router.back()}
+                        className="w-11 h-11 bg-white rounded-full flex items-center justify-center premium-shadow"
+                    >
+                        <ChevronLeft size={20} className="text-foreground" />
+                    </button>
+                    {!isSearching ? (
+                        <h1 className="text-xl font-bold text-foreground">Categories</h1>
+                    ) : (
+                        <div className="flex-1 px-4">
+                            <input
+                                type="text"
+                                autoFocus
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                placeholder="Search categories..."
+                                className="w-full h-11 bg-card rounded-xl px-4 text-sm focus:outline-none premium-shadow border border-black/5"
+                            />
+                        </div>
+                    )}
+                    <button
+                        onClick={() => {
+                            setIsSearching(!isSearching);
+                            if (isSearching) setSearchQuery("");
+                        }}
+                        className={`w-11 h-11 rounded-full flex items-center justify-center premium-shadow transition-colors ${isSearching ? 'bg-primary text-white' : 'bg-white text-foreground'}`}
+                    >
+                        <Search size={20} />
+                    </button>
+                </div>
             </header>
 
             {/* Categories Grid */}
-            <div className="px-6 grid grid-cols-4 gap-x-4 gap-y-8">
-                {categories.map((cat) => (
-                    <CategoryItem key={cat.label} {...cat} />
-                ))}
+            <div className="px-6">
+                {filteredCategories.length > 0 ? (
+                    <div className="grid grid-cols-4 gap-x-4 gap-y-8">
+                        {filteredCategories.map((cat) => (
+                            <CategoryItem key={cat.label} {...cat} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="py-12 text-center opacity-50">
+                        <p className="font-bold">No categories found</p>
+                    </div>
+                )}
             </div>
 
             {/* Seasonal Picks (Placeholder) */}

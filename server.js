@@ -15,8 +15,8 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-jwt-key-change-i
 // Security middleware
 app.use(helmet());
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' 
-        ? ['https://yourdomain.com'] 
+    origin: process.env.NODE_ENV === 'production'
+        ? ['https://yourdomain.com']
         : ['http://localhost:3000'],
     credentials: true
 }));
@@ -32,7 +32,7 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/veggiefresh', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/JannoFresh', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => {
@@ -83,9 +83,9 @@ const userSchema = new mongoose.Schema({
 });
 
 // Hash password before saving
-userSchema.pre('save', async function(next) {
+userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
-    
+
     try {
         const salt = await bcrypt.genSalt(12);
         this.password = await bcrypt.hash(this.password, salt);
@@ -126,7 +126,7 @@ const generateToken = (id) => {
 // Validation middleware
 const validateInput = (req, res, next) => {
     const { name, email, password } = req.body;
-    
+
     if (req.path === '/api/auth/register') {
         if (!name || !name.trim()) {
             return res.status(400).json({ error: 'Name is required' });
@@ -135,19 +135,19 @@ const validateInput = (req, res, next) => {
             return res.status(400).json({ error: 'Name must be between 2 and 50 characters' });
         }
     }
-    
+
     if (!email || !email.trim()) {
         return res.status(400).json({ error: 'Email is required' });
     }
-    
+
     if (!validator.isEmail(email)) {
         return res.status(400).json({ error: 'Please provide a valid email' });
     }
-    
+
     if (!password || password.length < 6) {
         return res.status(400).json({ error: 'Password must be at least 6 characters' });
     }
-    
+
     next();
 };
 
@@ -155,18 +155,18 @@ const validateInput = (req, res, next) => {
 const authenticate = async (req, res, next) => {
     try {
         const token = req.header('Authorization')?.replace('Bearer ', '');
-        
+
         if (!token) {
             return res.status(401).json({ error: 'Access denied. No token provided.' });
         }
-        
+
         const decoded = jwt.verify(token, JWT_SECRET);
         const user = await User.findById(decoded.id).select('-password');
-        
+
         if (!user) {
             return res.status(401).json({ error: 'Invalid token.' });
         }
-        
+
         req.user = user;
         next();
     } catch (error) {
@@ -179,14 +179,14 @@ const authenticate = async (req, res, next) => {
 app.post('/api/auth/register', validateInput, async (req, res) => {
     try {
         const { name, email, password, phone } = req.body;
-        
+
         if (isMongoConnected()) {
             // Use MongoDB
             const existingUser = await User.findOne({ email: email.toLowerCase() });
             if (existingUser) {
                 return res.status(400).json({ error: 'User with this email already exists' });
             }
-            
+
             const user = new User({
                 name: name.trim(),
                 email: email.toLowerCase().trim(),
@@ -194,13 +194,13 @@ app.post('/api/auth/register', validateInput, async (req, res) => {
                 phone: phone ? phone.trim() : '',
                 avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`
             });
-            
+
             await user.save();
-            
+
             const token = generateToken(user._id);
             const userResponse = user.toObject();
             delete userResponse.password;
-            
+
             res.status(201).json({
                 message: 'User registered successfully',
                 user: userResponse,
@@ -210,13 +210,13 @@ app.post('/api/auth/register', validateInput, async (req, res) => {
             // Use in-memory storage
             console.log('Using in-memory storage for registration');
             console.log('Current users:', inMemoryUsers.map(u => ({ email: u.email, name: u.name })));
-            
+
             const existingUser = inMemoryUsers.find(u => u.email === email.toLowerCase());
             if (existingUser) {
                 console.log('User already exists:', existingUser.email);
                 return res.status(400).json({ error: 'User with this email already exists' });
             }
-            
+
             const hashedPassword = await bcrypt.hash(password, 12);
             const newUser = {
                 id: Date.now().toString(),
@@ -227,14 +227,14 @@ app.post('/api/auth/register', validateInput, async (req, res) => {
                 avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`,
                 createdAt: new Date().toISOString()
             };
-            
+
             inMemoryUsers.push(newUser);
             console.log('New user added:', { email: newUser.email, name: newUser.name });
-            
+
             const token = generateToken(newUser.id);
             const userResponse = { ...newUser };
             delete userResponse.password;
-            
+
             res.status(201).json({
                 message: 'User registered successfully',
                 user: userResponse,
@@ -251,23 +251,23 @@ app.post('/api/auth/register', validateInput, async (req, res) => {
 app.post('/api/auth/login', validateInput, async (req, res) => {
     try {
         const { email, password } = req.body;
-        
+
         if (isMongoConnected()) {
             // Use MongoDB
             const user = await User.findOne({ email: email.toLowerCase() }).select('+password');
             if (!user) {
                 return res.status(401).json({ error: 'Invalid email or password' });
             }
-            
+
             const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) {
                 return res.status(401).json({ error: 'Invalid email or password' });
             }
-            
+
             const token = generateToken(user._id);
             const userResponse = user.toObject();
             delete userResponse.password;
-            
+
             res.json({
                 message: 'Login successful',
                 user: userResponse,
@@ -279,16 +279,16 @@ app.post('/api/auth/login', validateInput, async (req, res) => {
             if (!user) {
                 return res.status(401).json({ error: 'Invalid email or password' });
             }
-            
+
             const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) {
                 return res.status(401).json({ error: 'Invalid email or password' });
             }
-            
+
             const token = generateToken(user.id);
             const userResponse = { ...user };
             delete userResponse.password;
-            
+
             res.json({
                 message: 'Login successful',
                 user: userResponse,

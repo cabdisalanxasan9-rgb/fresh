@@ -26,7 +26,7 @@ const mockUsers = [
     {
         id: "3",
         name: "Admin User",
-        email: "admin@veggiefresh.com",
+        email: "admin@JannoFresh.com",
         phone: "+252 61 555 0000",
         createdAt: "2024-01-01",
         role: "admin"
@@ -46,7 +46,7 @@ export default function AdminUsersPage() {
         <AdminGuard>
             <div className="flex flex-col gap-8 pb-12 min-h-screen bg-background">
                 {/* Header */}
-                <header className="px-6 pt-8 flex items-center justify-between bg-white border-b border-black/5">
+                <header className="px-6 pt-8 flex items-center justify-between bg-card border-b border-black/5">
                     <div>
                         <h1 className="text-2xl font-bold text-foreground">Users Management</h1>
                         <p className="text-sm text-subtitle">{mockUsers.length} total users</p>
@@ -62,7 +62,7 @@ export default function AdminUsersPage() {
                             placeholder="Search users..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full h-14 pl-12 pr-4 bg-white rounded-2xl border border-black/5 focus:border-primary focus:outline-none premium-shadow text-foreground placeholder:text-subtitle"
+                            className="w-full h-14 pl-12 pr-4 bg-card rounded-2xl border border-black/5 focus:border-primary focus:outline-none premium-shadow text-foreground placeholder:text-subtitle"
                         />
                     </div>
                 </section>
@@ -70,12 +70,12 @@ export default function AdminUsersPage() {
                 {/* Users List */}
                 <section className="px-6">
                     {filteredUsers.length === 0 ? (
-                        <div className="bg-white rounded-2xl p-12 text-center premium-shadow">
+                        <div className="bg-card rounded-2xl p-12 text-center premium-shadow">
                             <User size={48} className="mx-auto mb-4 text-subtitle" />
                             <p className="text-subtitle font-medium">No users found</p>
                         </div>
                     ) : (
-                        <div className="bg-white rounded-2xl overflow-hidden premium-shadow">
+                        <div className="bg-card rounded-2xl overflow-hidden premium-shadow">
                             <div className="divide-y divide-black/5">
                                 {filteredUsers.map((user) => (
                                     <div

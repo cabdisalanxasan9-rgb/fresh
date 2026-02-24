@@ -50,7 +50,7 @@ export default function LoginPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         if (!validateForm()) return;
 
         try {
@@ -68,9 +68,9 @@ export default function LoginPage() {
                 <div className="w-11" />
                 <div className="flex items-center gap-2">
                     <ShoppingBag size={24} className="text-primary" />
-                    <h1 className="text-xl font-bold text-foreground">VeggieFresh</h1>
+                    <h1 className="text-xl font-bold text-foreground">JannoFresh</h1>
                 </div>
-                <Link 
+                <Link
                     href="/auth/signup"
                     className="text-primary text-sm font-bold hover:underline"
                 >
@@ -186,7 +186,7 @@ export default function LoginPage() {
                 </p>
                 <div className="flex justify-center opacity-40">
                     <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-subtitle">
-                        VeggieFresh v2.4.1
+                        JannoFresh v2.4.1
                     </p>
                 </div>
             </div>

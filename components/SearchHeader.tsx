@@ -2,8 +2,11 @@
 
 import React from "react";
 import { Search, Bell } from "lucide-react";
+import { useProducts } from "@/context/ProductsContext";
 
 export default function SearchHeader() {
+  const { searchQuery, setSearchQuery } = useProducts();
+
   return (
     <header className="px-6 pt-8 flex flex-col gap-6">
       <div className="flex justify-between items-center">
@@ -47,7 +50,7 @@ export default function SearchHeader() {
               />
             </svg>
           </div>
-          <h1 className="text-xl font-bold text-primary font-outfit">VeggieFresh</h1>
+          <h1 className="text-xl font-bold text-primary font-outfit">JannoFresh</h1>
         </div>
         <button className="relative w-11 h-11 bg-card rounded-full flex items-center justify-center premium-shadow group">
           <Bell size={20} className="text-foreground group-hover:text-primary transition-colors" />
@@ -62,6 +65,8 @@ export default function SearchHeader() {
         <input
           type="text"
           placeholder="Search for fresh vegetables..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full h-14 pl-12 pr-4 bg-card rounded-2xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/10 transition-all premium-shadow"
         />
       </div>
